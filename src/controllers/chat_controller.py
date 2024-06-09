@@ -40,7 +40,7 @@ def complete():
             duration = end - start
             print(res)
             return make_response(
-                jsonify({"result": res[0], "ans": res[1], "time_took": f'{duration}s'}),
+                jsonify({"result": res[0], "time_took": f'{duration}s'}),
                 200
             )
         except openai.APIError as e:
