@@ -1,10 +1,8 @@
 import time
 
-import openai.types
 
 from src.routes import api, chat
 from flask import request, make_response, jsonify
-from openai import OpenAI
 from langchain_community.utilities import SQLDatabase
 import os
 
@@ -24,7 +22,6 @@ agent = agent.Agent(model_name=model_name, pod_id=pod_id, port=pod_port)
 
 @chat.route('/', methods=['POST'])
 def complete():
-    print(open_api_base)
     req = request.get_json()
 
     if 'prompt' in req:
@@ -40,7 +37,7 @@ def complete():
             duration = end - start
             print(res)
             return make_response(
-                jsonify({"result": res[0], "time_took": f'{duration}s'}),
+                jsonify({"result": res, "time_took": f'{duration}s'}),
                 200
             )
         except openai.APIError as e:

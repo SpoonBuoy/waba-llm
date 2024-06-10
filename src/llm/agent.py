@@ -1,12 +1,14 @@
 
 from langchain_community.llms import VLLMOpenAI
 from src.llm import template
-from src.controllers.data_controller import chroma
+from src.chroma import client
 import os
 
 os.environ["LANGCHAIN_API_KEY"] = os.environ.get("LANGSMITH_API_KEY")
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_TRACING_V2"] = "false"
 
+
+chroma = client.Chroma("sqlite:///chroma.db")
 
 class Agent:
     name: str
@@ -45,7 +47,8 @@ class Agent:
 
     def response(self, question, ctx):
         p = self.get_prompt_template(question, ctx)
-        res = self.llm(p, stop=[";", "User Question"])
+        print(p)
+        res = self.llm(p, stop=["Business Details"])
 
         print(res)
 

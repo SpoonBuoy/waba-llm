@@ -1,5 +1,4 @@
 import chromadb
-from src.models.train_data import TrainingData
 
 client = chromadb.Client()
 
